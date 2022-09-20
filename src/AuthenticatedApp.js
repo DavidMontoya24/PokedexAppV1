@@ -8,6 +8,7 @@ import {
 } from "./services/favorites-service";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import { useAuth } from "./context/auth-context";
+import PokemonProfilePage from "./pages/poke-profile-page";
 
 const AuthenticatedApp = () => {
   const [favorites, setFavorites] = useState([]);
@@ -59,6 +60,10 @@ const AuthenticatedApp = () => {
           <Route
             path="favorites"
             element={<FavoritesPage favorites={favorites} />}
+          />
+          <Route
+            path="profile"
+            element={<PokemonProfilePage />}
           />
         </Routes>
       </BrowserRouter>

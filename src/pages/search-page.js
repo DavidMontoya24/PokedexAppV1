@@ -22,6 +22,7 @@ const SearchPage = ({favorites, onAddFavorites , onRemoveFavorite}) => {
     setState({ status:"pending", data:null, error:null});
     getPokemon(query)
       .then((data) => {
+        console.log(data);
         setState({ status: "success", data: data, error: null });
       })
       .catch((error) => {
