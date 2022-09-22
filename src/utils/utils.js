@@ -1,3 +1,4 @@
 export function capitalizeStr(str) {
-  return str[0].toUpperCase() + str.slice(1).toLowerCase();
+  const noDash = str.replace(/-/g, ' ');
+  return noDash[0].toUpperCase() + noDash.slice(1).toLowerCase();
 }
