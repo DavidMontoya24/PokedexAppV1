@@ -7,12 +7,12 @@ import {
   removeFavorite,
 } from "./services/favorites-service";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
-import { useAuth } from "./context/auth-context";
 import PokemonProfilePage from "./pages/poke-profile-page";
+import SearchPage2 from "./pages/search-page-2";
+import styled from "@emotion/styled";
 
 const AuthenticatedApp = () => {
   const [favorites, setFavorites] = useState([]);
-  const { logout } = useAuth();
   
   useEffect(() => {
     getFavorites()
@@ -43,8 +43,7 @@ const AuthenticatedApp = () => {
   }
 
   return (
-    <div>
-      <button onClick={logout}>Log out</button>
+    <>
       <BrowserRouter>
         <Routes>
           <Route
@@ -57,17 +56,22 @@ const AuthenticatedApp = () => {
               />
             }
           />
+          <Route 
+            path="search"
+            element={
+              <SearchPage2 />
+            }/>
           <Route
             path="favorites"
             element={<FavoritesPage favorites={favorites} />}
           />
           <Route
-            path="profile"
+            path="search/pokemon"
             element={<PokemonProfilePage />}
           />
         </Routes>
       </BrowserRouter>
-    </div>
+    </>
   );
 };
 
