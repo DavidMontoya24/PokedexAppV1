@@ -6,15 +6,25 @@ import PokemonData from '../components/pokemon-data';
 import PokemonProfilePage from "./poke-profile-page";
 import { useAuth } from "../context/auth-context";
 import styled from "@emotion/styled";
+import { typeColors } from "../styles/colors";
+import { BiSearch } from 'react-icons/bi';
+import SearchInput from "../components/search-input";
+import HeaderNav from "../components/header-nav";
 
 const LayoutContainer = styled.div`
-  /* width: 360px; */
   height: 100vh;
   margin: auto;
-  /* border-radius: 12px; */
-  background-color: red;
-  padding: 4px;
+  padding: 50px 0;
 `;
+
+const Header = styled.div`
+  max-width: 750px;
+  margin: 30px auto;
+  /* margin-bottom: 50px; */
+  display: flex;
+  /* flex-direction: column; */
+  justify-content: center;
+`
 
 const SearchPage2 = ({favorites, onAddFavorites , onRemoveFavorite}) => {
   const { logout } = useAuth();
@@ -44,6 +54,15 @@ const SearchPage2 = ({favorites, onAddFavorites , onRemoveFavorite}) => {
       });
   }
 
+  let pokemonColor;
+  for (const color in typeColors) {
+    if(pokemon) {
+      if (color === pokemon.types[0].type.name) {
+        pokemonColor = typeColors[color];
+      }
+    }
+  }
+
   // useEffect(() => {
   //   console.log("Favorites ", favorites);
   // }, [favorites]);
@@ -53,18 +72,20 @@ const SearchPage2 = ({favorites, onAddFavorites , onRemoveFavorite}) => {
   //   : false;
 
   return (
-    <LayoutContainer>
-      <button onClick={logout}>Log out</button>
-      <Link to="/favorites">Go to Favorites</Link>
-      <form onSubmit={handleSubmit}>
-        <Input
+    <LayoutContainer  style={{backgroundColor: pokemonColor || "white"}}>
+      <HeaderNav onClickLogout={logout} />
+      <Header>
+        <SearchInput
+          onSubmit={handleSubmit}
           name="query"
-          placeholder="pokemon name"
+          placeholder="pikachu"
           value={query}
           onChange={(e) => setQuery(e.target.value)}
+          iconRight={<BiSearch size="1.5rem"/>}
         />
-        <button type="submit">Search</button>
-      </form>
+        {/* <Link to="/favorites">Go to Favorites</Link>
+        <button onClick={logout}>Log out</button> */}
+      </Header>
       {status === "idle" && "Ready to Search"}
       {status === "pending" && "Loading..."}
       {status === "success" && (

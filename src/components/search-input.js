@@ -1,7 +1,7 @@
 import styled from "@emotion/styled";
 import { colors } from "../styles";
 
-const InputWrapper = styled.div`
+const FormWrapper = styled.form`
   max-width: 300px;
   min-width: 200px;
   background-color: white;
@@ -11,24 +11,33 @@ const InputWrapper = styled.div`
   display: flex;
   align-items: center;
   justify-content: space-between;
+  box-shadow: 0px 0px 5px 0px rgba(0,0,0,0.30);;
 `
-
 
 const StyledInput = styled.input`
   background-color: white;
   border: none;
   border-radius: 12px;
   min-height: 30px;
-  /* padding: 4px 12px; */
   outline: none;
   &::placeholder{
     color: ${colors.stone[300]};
   }
+  &::-webkit-autofill,
+  &::-webkit-autofill:focus {
+    background-color: white;
+  }
 `
 
-function Input({ id, name, type="text", value, onChange, placeholder, label }) {
+const Button = styled.button`
+  border: none;
+  background-color: white;
+  display: flex;
+`
+
+function SearchInput({ id, name, type="text", value, onChange, placeholder, label, iconRight, onSubmit }) {
   return (
-    <InputWrapper>
+    <FormWrapper onSubmit={onSubmit}>
       {label && <label htmlFor={id || name}>{label}</label>}
       <StyledInput
         type={type}
@@ -38,8 +47,9 @@ function Input({ id, name, type="text", value, onChange, placeholder, label }) {
         value={value}
         onChange={onChange}
       />
-    </InputWrapper>
+      <Button type="submit" style={{cursor: "pointer"}}>{iconRight}</Button>
+    </FormWrapper>
   );
 }
 
-export default Input;
+export default SearchInput;

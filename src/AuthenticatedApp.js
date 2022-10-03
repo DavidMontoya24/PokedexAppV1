@@ -46,7 +46,7 @@ const AuthenticatedApp = () => {
     <>
       <BrowserRouter>
         <Routes>
-          <Route
+          {/* <Route
             path="/"
             element={
               <SearchPage
@@ -55,11 +55,14 @@ const AuthenticatedApp = () => {
                 onRemoveFavorite={handleRemoveFavorite}
               />
             }
-          />
-          <Route 
-            path="search"
+          /> */}
+          <Route
+            path="/"
             element={
-              <SearchPage2 />
+              <SearchPage2
+                favorites={favorites}
+                onAddFavorites={handleAddFavorite}
+                onRemoveFavorite={handleRemoveFavorite}/>
             }/>
           <Route
             path="favorites"

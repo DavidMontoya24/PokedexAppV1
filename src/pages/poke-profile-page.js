@@ -2,9 +2,9 @@ import styled from "@emotion/styled";
 import { typeColors } from "../styles/colors";
 import Pokemon from "../components/pokemon";
 
-const LayoutContainer = styled.div`
+const LayoutContainer = styled.section`
   max-width: 750px;
-  height: 640px;
+  height: 750px;
   margin: auto;
   border-radius: 12px;
   background-color: ${({color}) => color};
@@ -16,9 +16,7 @@ const LayoutContainer = styled.div`
   position: relative;
 `;
 
-
 function PokemonProfilePage({dataPokemon}) {
-  
   let pokemonColor;
   for (const color in typeColors) {
     if (color === dataPokemon.types[0].type.name) {
