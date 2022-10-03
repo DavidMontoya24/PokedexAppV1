@@ -19,6 +19,7 @@ const StyledInput = styled.input`
   border: none;
   border-radius: 12px;
   min-height: 30px;
+  padding: 5px 10px;
   /* padding: 4px 12px; */
   outline: none;
   &::placeholder{
@@ -28,7 +29,7 @@ const StyledInput = styled.input`
 
 function Input({ id, name, type="text", value, onChange, placeholder, label }) {
   return (
-    <InputWrapper>
+    <>
       {label && <label htmlFor={id || name}>{label}</label>}
       <StyledInput
         type={type}
@@ -38,7 +39,7 @@ function Input({ id, name, type="text", value, onChange, placeholder, label }) {
         value={value}
         onChange={onChange}
       />
-    </InputWrapper>
+    </>
   );
 }
 
