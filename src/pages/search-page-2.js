@@ -2,12 +2,12 @@ import { useState } from "react";
 import { Link, Navigate, redirect } from "react-router-dom";
 import Input from "../components/input";
 import { getPokemon } from "../services/pokeapi-service";
-import PokemonData from '../components/pokemon-data';
+import PokemonData from "../components/pokemon-data";
 import PokemonProfilePage from "./poke-profile-page";
 import { useAuth } from "../context/auth-context";
 import styled from "@emotion/styled";
 import { typeColors } from "../styles/colors";
-import { BiSearch } from 'react-icons/bi';
+import { BiSearch } from "react-icons/bi";
 import SearchInput from "../components/search-input";
 import HeaderNav from "../components/header-nav";
 
@@ -24,9 +24,13 @@ const Header = styled.div`
   display: flex;
   /* flex-direction: column; */
   justify-content: center;
-`
+`;
 
-const SearchPage2 = ({favorites, onAddFavorites , onRemoveFavorite}) => {
+const Content = styled.div`
+  text-align: center;
+`;
+
+const SearchPage2 = ({ favorites, onAddFavorites, onRemoveFavorite }) => {
   const { logout } = useAuth();
   const [query, setQuery] = useState("");
   const [state, setState] = useState({
@@ -39,7 +43,7 @@ const SearchPage2 = ({favorites, onAddFavorites , onRemoveFavorite}) => {
   function handleSubmit(event) {
     event.preventDefault();
     if (query.length === 0) return;
-    setState({ status:"pending", data:null, error:null});
+    setState({ status: "pending", data: null, error: null });
     getPokemon(query)
       .then((data) => {
         setState({ status: "success", data: data, error: null });
@@ -56,7 +60,7 @@ const SearchPage2 = ({favorites, onAddFavorites , onRemoveFavorite}) => {
 
   let pokemonColor;
   for (const color in typeColors) {
-    if(pokemon) {
+    if (pokemon) {
       if (color === pokemon.types[0].type.name) {
         pokemonColor = typeColors[color];
       }
@@ -72,7 +76,7 @@ const SearchPage2 = ({favorites, onAddFavorites , onRemoveFavorite}) => {
   //   : false;
 
   return (
-    <LayoutContainer  style={{backgroundColor: pokemonColor || "white"}}>
+    <LayoutContainer style={{ backgroundColor: pokemonColor || "white" }}>
       <HeaderNav onClickLogout={logout} />
       <Header>
         <SearchInput
@@ -81,19 +85,17 @@ const SearchPage2 = ({favorites, onAddFavorites , onRemoveFavorite}) => {
           placeholder="pikachu"
           value={query}
           onChange={(e) => setQuery(e.target.value)}
-          iconRight={<BiSearch size="1.5rem"/>}
+          iconRight={<BiSearch size="1.5rem" />}
         />
         {/* <Link to="/favorites">Go to Favorites</Link>
         <button onClick={logout}>Log out</button> */}
       </Header>
-      {status === "idle" && "Ready to Search"}
-      {status === "pending" && "Loading..."}
-      {status === "success" && (
-        <PokemonProfilePage
-          dataPokemon={pokemon}
-        />
-      )}
-      {status === "error" && <p style={{ color: "red" }}>{error}</p>}
+      <Content>
+        {status === "idle" && "Ready to Search"}
+        {status === "pending" && "Loading..."}
+        {status === "success" && <PokemonProfilePage dataPokemon={pokemon} />}
+        {status === "error" && <p style={{ color: "red" }}>{error}</p>}
+      </Content>
     </LayoutContainer>
   );
 };

@@ -1,14 +1,15 @@
 import styled from "@emotion/styled";
 import { useState } from "react";
 import { useAuth } from "../context/auth-context";
+import Button from "./Button";
 import Input from "./input";
 
 const StyledForm = styled.form`
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 2rem;
-`
+  gap: 1rem;
+`;
 
 const LoginForm = () => {
   const [formData, setFormData] = useState({
@@ -44,7 +45,7 @@ const LoginForm = () => {
         onChange={handleChange}
         label="Password"
       />
-      <button type="submit">Login</button>
+      <Button type="submit">Login</Button>
     </StyledForm>
   );
 };
