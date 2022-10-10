@@ -10,9 +10,8 @@ const BgPage = styled.div`
   height: 100vh;
   padding: 100px 0;
   background-image: url(${myimg});
-  background-repeat: round;
-  background-size: contain;
-  opacity: .5;
+  /* background-repeat: round; */
+  background-size: cover;
 `
 
 const Container = styled.div`
